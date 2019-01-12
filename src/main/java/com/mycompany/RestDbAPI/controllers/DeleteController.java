@@ -6,36 +6,39 @@ import com.mycompany.RestDbAPI.daointerfaces.CommentDao;
 import com.mycompany.RestDbAPI.daointerfaces.UserDao;
 import com.mycompany.RestDbAPI.model.Article;
 import com.mycompany.RestDbAPI.model.Comment;
-import com.mycompany.RestDbAPI.model.info.ArticleInfo;
+import com.mycompany.RestDbAPI.model.User;
 import com.mycompany.RestDbAPI.model.info.CommentInfo;
 import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
-@RequestMapping(value = "/update")
-public class UpdateController {
-    
+@RequestMapping(value = "/delete")
+@Transactional
+public class DeleteController {
+
+    @Autowired
+    private UserDao userDao;
+
     @Autowired
     private ArticleDao articleDao;
 
     @Autowired
     private CommentDao commentDao;
-    
-    @RequestMapping(value = "/comment", method = RequestMethod.PUT,
+
+    @RequestMapping(value = "/comment/{id}", method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Message updateComment(@RequestBody CommentInfo comment) {
+    public Message delComment(@PathVariable("id") Long id) {
         Message message = new Message();
         try {
-            Comment updateComment = commentDao.findById(comment.getId()).get();
-            updateComment.setText(comment.getText());
-            commentDao.save(updateComment);
+            Comment delComment = commentDao.findById(id).get();
+            commentDao.delete(delComment);
             message.setStatus(0);
         } catch (NoSuchElementException e) {
             message.setStatus(1);
@@ -43,16 +46,15 @@ public class UpdateController {
             return message;
         }
         return message;
-    }//end updateComment
+    }//end delComment
     
-    @RequestMapping(value = "/article", method = RequestMethod.PUT,
+    @RequestMapping(value = "/article/{id}", method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Message updateArticle(@RequestBody ArticleInfo article) {
+    public Message delArticle(@PathVariable("id") Long id) {
         Message message = new Message();
         try {
-            Article updateArticle = articleDao.findById(article.getId()).get();
-            updateArticle.setText(article.getText());
-            articleDao.save(updateArticle);
+            Article article = articleDao.findById(id).get();
+            articleDao.delete(article);
             message.setStatus(0);
         } catch (NoSuchElementException e) {
             message.setStatus(1);
@@ -60,5 +62,14 @@ public class UpdateController {
             return message;
         }
         return message;
-    }//end updateArticle
+    }//end delArticle
+    
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Message delUser(@PathVariable("id") Long id) {
+        Message message = new Message();
+        //add logic
+        return message;
+    }
+
 }

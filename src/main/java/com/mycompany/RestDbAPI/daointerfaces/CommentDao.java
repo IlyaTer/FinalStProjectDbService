@@ -1,19 +1,14 @@
 package com.mycompany.RestDbAPI.daointerfaces;
 
+import com.mycompany.RestDbAPI.model.Article;
 import com.mycompany.RestDbAPI.model.Comment;
-import com.mycompany.RestDbAPI.model.info.CommentInfo;
 import java.util.List;
+import org.springframework.data.repository.CrudRepository;
 
 
-public interface CommentDao {
+public interface CommentDao extends CrudRepository<Comment, Long>{
+  
+    List<Comment> findByArticle(Article article);
     
-    Comment addUpdate(Comment comment);
-    
-    List<CommentInfo> findAll();
-    
-    Comment findById(Long id);
-    
-    Comment findByIdWithDetail(Long id);
-    
-    void delete(Comment comment);
+    void removeByArticleId(Long id);
 }

@@ -1,5 +1,6 @@
 package com.mycompany.RestDbAPI.model;
 
+import java.io.Serializable;
 import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,21 +9,23 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-public class Comment {
+@Table(name = "Comments")
+public class Comment implements Serializable{
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "ID")
     private Long id;
 
-    @ManyToOne(cascade = ALL)
+    @ManyToOne
     @JoinColumn(name = "ARTICLE")
     private Article article;
 
-    @ManyToOne(cascade = ALL)
-    @JoinColumn(name = "AITHOR")
+    @ManyToOne
+    @JoinColumn(name = "AUTHOR")
     private User author;
 
     @Column(name = "CONTENT")

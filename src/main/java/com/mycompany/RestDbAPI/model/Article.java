@@ -1,11 +1,13 @@
 package com.mycompany.RestDbAPI.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
@@ -16,7 +18,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Articles")
-public class Article {
+public class Article implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -32,7 +34,7 @@ public class Article {
     @Column(name = "CONTENT")
     private String text;
 
-    @ManyToOne(cascade = ALL)
+    @ManyToOne
     @JoinColumn(name = "AUTHOR")
     private User author;
 

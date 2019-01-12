@@ -1,5 +1,7 @@
 package com.mycompany.RestDbAPI.model.info;
 
+import java.util.List;
+
 
 public class ArticleInfo {
     
@@ -8,18 +10,20 @@ public class ArticleInfo {
     private String topic;
     private String text;
     private String author;
+    private List<CommentInfo> comments;
 
     public ArticleInfo() {
     }
 
-    public ArticleInfo(Long id, String name, String topic, String text, String author) {
+    public ArticleInfo(Long id, String name, String topic, String text, String author, List<CommentInfo> comments) {
         this.id = id;
         this.name = name;
         this.topic = topic;
         this.text = text;
         this.author = author;
+        this.comments = comments;
     }
-
+    
     public Long getId() {
         return id;
     }
@@ -58,6 +62,14 @@ public class ArticleInfo {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public List<CommentInfo> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentInfo> comments) {
+        this.comments = comments;
     }
     
     

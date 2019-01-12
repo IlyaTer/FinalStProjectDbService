@@ -1,5 +1,6 @@
 package com.mycompany.RestDbAPI.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -14,10 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Users")
-@NamedQuery(name = "User.findByIdWithDetail",
-        query = "select distinct u "
-        + "from User u left join fetch u.articles where u.id = :idres")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)

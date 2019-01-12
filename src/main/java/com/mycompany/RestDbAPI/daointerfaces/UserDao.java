@@ -1,18 +1,9 @@
 package com.mycompany.RestDbAPI.daointerfaces;
 
 import com.mycompany.RestDbAPI.model.User;
-import com.mycompany.RestDbAPI.model.info.UserInfo;
-import java.util.List;
+import org.springframework.data.repository.CrudRepository;
 
-public interface UserDao {
-    
-    User addUpdate(User user);
-    
-    List<UserInfo> findAll();
-    
-    User findById(Long id);
-    
-    User findByIdWithDetail(Long id);
-    
-    void delete(User user);
+public interface UserDao extends CrudRepository<User, Long>{
+   
+    User findByLogin(String login);
 }
